@@ -33,7 +33,7 @@ function ResumeUpload() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/api/resume/upload",
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/resume/upload",
         formData,
         {
           headers: {

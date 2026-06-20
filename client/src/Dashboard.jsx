@@ -23,7 +23,7 @@ function Dashboard() {
   const loadDashboard = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/dashboard/${user._id}`
+         `https://ai-interview-preparation-platform-hdj7.onrender.com/api/dashboard/${user._id}`
       );
 
       setStats(res.data);

@@ -13,7 +13,7 @@ function InterviewHistory() {
       const user = JSON.parse(localStorage.getItem("user"));
 
       const res = await axios.get(
-        `http://localhost:5000/api/history/interviews/${user._id}`
+        `https://ai-interview-preparation-platform-hdj7.onrender.com/api/history/interviews/${user._id}`
       );
 
       setHistory(res.data.interviews);

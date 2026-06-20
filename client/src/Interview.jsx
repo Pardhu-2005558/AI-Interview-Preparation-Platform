@@ -30,7 +30,7 @@ function Interview() {
 
       // Step 1 - Save Interview
       const interviewResponse = await axios.post(
-        "http://localhost:5000/api/interview",
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/interview",
         {
           userId: user._id,
           answers,
@@ -42,7 +42,7 @@ function Interview() {
 
       // Step 2 - AI Evaluation
       const aiResponse = await axios.post(
-        "http://localhost:5000/api/ai/evaluate",
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/ai/evaluate",
         {
           interviewId,
           answers,

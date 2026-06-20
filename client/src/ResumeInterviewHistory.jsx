@@ -15,7 +15,7 @@ function ResumeInterviewHistory() {
       setError(null);
       // ✅ FIX: Call the correct endpoint that returns all interviews
       const res = await axios.get(
-        "http://localhost:5000/api/resume-interview"
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/resume-interview"
       );
 
       // ✅ FIX: Access the correct property from response

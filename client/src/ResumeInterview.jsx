@@ -23,7 +23,7 @@ function ResumeInterview() {
       formData.append("resume", resume);
 
       const res = await axios.post(
-        "http://localhost:5000/api/resume-interview/generate",
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/resume-interview/generate",
         formData,
         {
           headers: {
@@ -69,7 +69,7 @@ function ResumeInterview() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/resume-interview/${interviewId}/submit`,
+        `https://ai-interview-preparation-platform-hdj7.onrender.com/${interviewId}/submit`,
         {
           answers: Object.keys(answers).map((key) => ({
             question: questions[key],
