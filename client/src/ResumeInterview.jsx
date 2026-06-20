@@ -19,8 +19,12 @@ function ResumeInterview() {
     try {
       setLoading(true);
 
+      // Get logged-in user from localStorage
+      const user = JSON.parse(localStorage.getItem("user"));
+
       const formData = new FormData();
       formData.append("resume", resume);
+      formData.append("userId", user._id); // Add userId to request
 
       const res = await axios.post(
         "https://ai-interview-preparation-platform-hdj7.onrender.com/api/resume-interview/generate",
@@ -69,7 +73,7 @@ function ResumeInterview() {
 
     try {
       const res = await axios.put(
-        `https://ai-interview-preparation-platform-hdj7.onrender.com/${interviewId}/submit`,
+        `https://ai-interview-preparation-platform-hdj7.onrender.com/api/resume-interview/${interviewId}/submit`,
         {
           answers: Object.keys(answers).map((key) => ({
             question: questions[key],
