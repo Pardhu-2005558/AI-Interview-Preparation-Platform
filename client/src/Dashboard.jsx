@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PerformanceChart from "../components/PerformanceChart";
+import PerformanceChart from "./PerformanceChart";
 import axios from "axios";
 
 function Dashboard() {
