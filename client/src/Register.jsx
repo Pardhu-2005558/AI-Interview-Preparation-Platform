@@ -8,6 +8,8 @@ function Register() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -16,9 +18,18 @@ function Register() {
   };
 
   const register = async () => {
+    if (loading) return;
+
+    if (!form.name || !form.email || !form.password) {
+      alert("Please fill all fields");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://ai-interview-preparation-platform-hdj7.onrender.com/api/auth/register",
         form
       );
 
@@ -29,12 +40,14 @@ function Register() {
 
       window.location.href = "/dashboard";
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       alert(
         error.response?.data?.message ||
-          "Registration Failed"
+        "Registration Failed"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,19 +103,25 @@ function Register() {
 
       <button
         onClick={register}
+        disabled={loading}
         style={{
           width: "100%",
           padding: "10px",
           background: "#1677ff",
           color: "#fff",
           border: "none",
-          cursor: "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
+          opacity: loading ? 0.7 : 1,
         }}
       >
-        Register
+        {loading ? "Registering..." : "Register"}
       </button>
 
-      <p style={{ marginTop: "20px" }}>
+      <p
+        style={{
+          marginTop: "20px",
+        }}
+      >
         Already have an account?
       </p>
 
