@@ -22,10 +22,12 @@ const getDashboardStats = async (req, res) => {
 
     // ============================
     // Resume Interviews
-    // (No authentication used)
+    // (Using 'user' field, not 'userId')
     // ============================
     const totalResumeInterviews =
-      await ResumeInterview.countDocuments();
+      await ResumeInterview.countDocuments({
+        user: userId,  // Fixed: changed from 'userId' to 'user'
+    });
 
     // ============================
     // Fetch Interviews
@@ -36,8 +38,9 @@ const getDashboardStats = async (req, res) => {
 
     const resumeInterviews =
       await ResumeInterview.find({
+        user: userId,  // Fixed: changed from 'userId' to 'user'
         completed: true,
-      });
+    });
 
     // ============================
     // Merge Scores
@@ -50,17 +53,17 @@ const getDashboardStats = async (req, res) => {
     });
 
     resumeInterviews.forEach((i) => {
-  if (typeof i.score === "number") {
-    let score = i.score;
+      if (typeof i.score === "number") {
+        let score = i.score;
 
-    // Convert old 0-100 scores to 0-10
-    if (score > 10) {
-      score = Number((score / 10).toFixed(1));
-    }
+        // Convert old 0-100 scores to 0-10
+        if (score > 10) {
+          score = Number((score / 10).toFixed(1));
+        }
 
-    allScores.push(score);
-  }
-});
+        allScores.push(score);
+      }
+    });
 
     let averageScore = 0;
     let bestScore = 0;
@@ -102,9 +105,11 @@ const getDashboardStats = async (req, res) => {
     // Latest Resume Interview
     // ============================
     const latestResumeInterview =
-      await ResumeInterview.findOne().sort({
+      await ResumeInterview.findOne({
+        user: userId,  // Fixed: changed from 'userId' to 'user'
+      }).sort({
         createdAt: -1,
-      });
+    });
 
     res.json({
       success: true,

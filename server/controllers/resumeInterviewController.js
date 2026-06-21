@@ -20,6 +20,28 @@ const generateResumeInterview = async (req, res) => {
       });
     }
 
+    // Get userId from request body
+    const { userId } = req.body;
+
+    console.log("================================");
+    console.log("Resume Interview API");
+    console.log("Received userId:", userId);
+    console.log("Body:", req.body);
+    console.log("================================");
+
+    // Security check - ensure userId is present
+    if (!userId) {
+      // Clean up uploaded file if it exists
+      if (req.file && fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+      }
+      
+      return res.status(400).json({
+        success: false,
+        message: "User ID is required.",
+      });
+    }
+
     let resumeText = "";
 
     // PDF
@@ -84,9 +106,9 @@ const generateResumeInterview = async (req, res) => {
       });
     }
 
-    // user: null (since auth is not used)
+    // Create interview with userId
     const interview = await ResumeInterview.create({
-      user: null,
+      user: userId,
       fileName: req.file.originalname,
       resumeText,
       questions,
